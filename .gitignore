@@ -1,3 +1,7 @@
+# config
+/src/store/db/config.js
+/key-config.js
+
 node_modules/**/*
 .expo/*
 npm-debug.*

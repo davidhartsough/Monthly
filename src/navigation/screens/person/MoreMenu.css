@@ -1,0 +1,12 @@
+.more-menu {
+  cursor: pointer;
+  border-radius: 100%;
+  margin-left: 0.25rem;
+  padding: 0.25rem;
+}
+.more-menu:hover {
+  background-color: #eee;
+}
+.dark .more-menu:hover {
+  background-color: hsl(214, 6%, 25%);
+}

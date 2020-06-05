@@ -1,32 +1,50 @@
 {
   "expo": {
-    "name": "MonthlyMoments",
-    "slug": "MonthlyMoments",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "version": "1.0.0",
+    "name": "Monthly Moments",
+    "slug": "monthly",
+    "description": "Share amazing moments with amazing people — one month at a time.",
+    "platforms": ["ios", "android"],
+    "privacy": "public",
+    "githubUrl": "https://github.com/davidhartsough/Monthly",
+    "version": "0.1.0",
     "orientation": "portrait",
+    "primaryColor": "#1471eb",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "monthly",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/foreground.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#f4f5f6"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.davidhartsough.monthly",
+      "buildNumber": "0.1.0",
+      "icon": "./assets/images/icon.png",
+      "supportsTablet": true,
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": ""
+        }
+      }
     },
-    "web": {
-      "favicon": "./assets/images/favicon.png"
+    "android": {
+      "package": "com.davidhartsough.monthly",
+      "versionCode": 1,
+      "icon": "./assets/images/android-icon.png",
+      "adaptiveIcon": {
+        "backgroundColor": "#1471eb",
+        "foregroundImage": "./assets/images/foreground.png"
+      },
+      "config": {
+        "googleSignIn": {
+          "apiKey": "",
+          "certificateHash": ""
+        }
+      }
     }
   }
 }
