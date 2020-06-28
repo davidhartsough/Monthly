@@ -33,7 +33,7 @@ export default function MomentForm({ initialMoment, onSave, onDelete }) {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    padding: 16,
+    // padding: 16,
   },
   text: {
     fontSize: 16,

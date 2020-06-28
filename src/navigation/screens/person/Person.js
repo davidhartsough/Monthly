@@ -65,7 +65,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Person);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 16,
+    paddingTop: 8,
   },
   central: {
     flex: 1,

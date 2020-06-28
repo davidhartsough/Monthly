@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { createMoment } from "../../../store/actions/thisMonthsMoments";
+import MomentForm from "./MomentForm";
+import Loader from "../../../components/Loader";
 
 function NewMomentForm({ saveNewMoment }) {
   const [loading, setLoading] = useState(false);
@@ -37,6 +39,6 @@ export default connect(null, mapDispatchToProps)(NewMomentForm);
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    padding: 16,
+    // padding: 16,
   },
 });
