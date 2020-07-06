@@ -1,12 +1,13 @@
 import React from "react";
-import { View, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet, TextInput, useColorScheme } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { colors } from "../theme";
 
 export default function SearchBox({ setValue, onSubmit, value }) {
+  const theme = useColorScheme();
   return (
-    <View style={styles.container}>
-      <Feather name="search" size={18} color={colors.dark.placeholderText} />
+    <View style={[styles.container, { borderColor: colors[theme].border }]}>
+      <Feather name="search" size={18} color={colors[theme].placeholderText} />
       <TextInput
         autoCapitalize="none"
         autoCompleteType="off"
@@ -23,10 +24,10 @@ export default function SearchBox({ setValue, onSubmit, value }) {
         onChangeText={setValue}
         onSubmitEditing={onSubmit}
         placeholder="Search"
-        placeholderTextColor={colors.dark.placeholderText}
+        placeholderTextColor={colors[theme].placeholderText}
         returnKeyType="search"
         textContentType="name"
-        style={styles.input}
+        style={[styles.input, { color: colors[theme].font }]}
         value={value}
       />
     </View>
@@ -36,7 +37,6 @@ export default function SearchBox({ setValue, onSubmit, value }) {
 const styles = StyleSheet.create({
   container: {
     padding: 8,
-    borderColor: colors.dark.border,
     borderWidth: 1,
     borderRadius: 4,
     margin: 16,
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 16,
-    color: colors.dark.font,
     flex: 1,
     marginLeft: 4,
   },

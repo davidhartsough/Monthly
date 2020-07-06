@@ -1,8 +1,6 @@
 import React from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 
-//username={username} name={name}
-
 export default function ResultList({ results, Empty }) {
   return (
     <View style={styles.list}>

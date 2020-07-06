@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { ActivityIndicator } from "react-native";
 import { connect } from "react-redux";
 import { acceptRequest, ignoreRequest } from "../../../store/actions/general";
-import Loader from "../../../components/Loader";
 import ListItem from "../../../components/ListItem";
 import Button from "../../../components/Button";
 
@@ -18,7 +18,7 @@ function RequestListItem({ name, username, accept, ignore }) {
   return (
     <ListItem name={name} username={username}>
       {loading ? (
-        <Loader />
+        <ActivityIndicator color="#1471eb" size="small" />
       ) : (
         <>
           <Button action={onAccept} text="Accept" type="inline" />

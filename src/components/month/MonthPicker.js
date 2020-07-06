@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, useColorScheme } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import SelectModal from "./SelectModal";
 import Touchable from "../Touchable";
@@ -7,6 +7,7 @@ import { colors } from "../../theme";
 import { monthOptions } from "../../date-utils";
 
 function MonthArrow({ direction, action, disabled }) {
+  const theme = useColorScheme();
   return (
     <View>
       <Touchable action={action} style={styles.touch} disabled={disabled}>
@@ -14,7 +15,9 @@ function MonthArrow({ direction, action, disabled }) {
           <Feather
             name={`chevron-${direction}`}
             size={24}
-            color={disabled ? colors.dark.disabledButtonFont : colors.dark.font}
+            color={
+              disabled ? colors[theme].disabledButtonFont : colors[theme].font
+            }
           />
         </View>
       </Touchable>
@@ -23,6 +26,7 @@ function MonthArrow({ direction, action, disabled }) {
 }
 
 export default function MonthPicker({ updateMonth }) {
+  const theme = useColorScheme();
   const [show, setShow] = useState(false);
   const [monthIndex, setMonthIndex] = useState(0);
   function onSelect(value, index) {
@@ -58,8 +62,13 @@ export default function MonthPicker({ updateMonth }) {
           options={monthOptions}
           onSelect={onSelect}
         />
-        <Touchable style={styles.opener} action={open}>
-          <Text style={styles.text}>{monthOptions[monthIndex].label}</Text>
+        <Touchable
+          style={[styles.opener, { borderColor: colors[theme].border }]}
+          action={open}
+        >
+          <Text style={[styles.text, { color: colors[theme].font }]}>
+            {monthOptions[monthIndex].label}
+          </Text>
         </Touchable>
       </View>
       <MonthArrow
@@ -84,7 +93,6 @@ const styles = StyleSheet.create({
     width: 120,
   },
   opener: {
-    borderColor: colors.dark.border,
     borderWidth: 1,
     borderRadius: 4,
     padding: 6,
@@ -92,6 +100,5 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     textAlign: "center",
-    color: colors.dark.font,
   },
 });

@@ -1,22 +1,24 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, useColorScheme } from "react-native";
+import { Feather } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import {
   updateMoment,
   deleteMoment,
 } from "../../../store/actions/thisMonthsMoments";
-import MomentForm from "./MomentForm";
 import Moment from "../../../components/Moment";
+import Touchable from "../../../components/Touchable";
 import Loader from "../../../components/Loader";
-import { Feather } from "@expo/vector-icons";
 import { colors } from "../../../theme";
+import MomentForm from "./MomentForm";
 
-function EditButton({ action }) {
+function EditButton({ action, disabled }) {
+  const theme = useColorScheme();
   return (
-    <View>
+    <View style={styles.editToggle}>
       <Touchable action={action} style={styles.touch} disabled={disabled}>
-        <View style={styles.button}>
-          <Feather name="edit" size={16} color={colors.dark.font} />
+        <View>
+          <Feather name="edit" size={16} color={colors[theme].font} />
         </View>
       </Touchable>
     </View>
@@ -53,8 +55,8 @@ function EditableMoment({ moment, saveChanges, removeMoment }) {
         />
       ) : (
         <View style={styles.editable}>
-          <Moment moment={moment} />
-          <EditButton />
+          <Moment moment={moment} paddingRight={24} />
+          <EditButton action={toggle} disabled={loading} />
         </View>
       )}
     </View>
@@ -69,10 +71,22 @@ export default connect(null, mapDispatchToProps)(EditableMoment);
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    padding: 16,
+    paddingHorizontal: 16,
   },
   text: {
     fontSize: 16,
+  },
+  editable: {
+    position: "relative",
+  },
+  editToggle: {
+    position: "absolute",
+    top: 4,
+    right: 3,
+    height: 24,
+    width: 24,
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

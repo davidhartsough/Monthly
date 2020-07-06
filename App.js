@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Platform, StatusBar, StyleSheet, View } from "react-native";
-import { decode, encode } from "base-64";
+import { Platform, YellowBox } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { Feather } from "@expo/vector-icons";
+import { decode, encode } from "base-64";
 import Index from "./src";
-import { colors } from "./src/theme";
 
 // TODO: remove when errors are resolved by package updates
 if (!global.btoa) {
@@ -13,6 +14,11 @@ if (!global.btoa) {
 }
 if (!global.atob) {
   global.atob = decode;
+}
+// TODO: remove when errors are resolved by package updates (firebase)
+if (Platform.OS === "android") {
+  console.ignoredYellowBox = ["Setting a timer"];
+  YellowBox.ignoreWarnings(["Setting a timer"]);
 }
 
 async function loadAssetsAsync() {
@@ -32,18 +38,9 @@ export default function App() {
     );
   }
   return (
-    <View style={styles.container}>
-      {Platform.OS === "ios" && <StatusBar barStyle="light-content" />}
+    <SafeAreaProvider>
+      <StatusBar />
       <Index />
-    </View>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.dark.background,
-    color: colors.dark.font,
-    fontSize: 16,
-  },
-});

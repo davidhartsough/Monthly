@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet, useColorScheme } from "react-native";
 import Loader from "../../../components/Loader";
 import Empty from "../../../components/Empty";
 import SearchBox from "../../../components/SearchBox";
@@ -7,6 +7,7 @@ import ResultListItem from "./ResultListItem";
 import { colors } from "../../../theme";
 
 export default function Search({ loading, query = "", data, submit }) {
+  const theme = useColorScheme();
   const [input, setInput] = useState(query.toLowerCase());
   function onSubmit() {
     if (loading) return;
@@ -21,7 +22,12 @@ export default function Search({ loading, query = "", data, submit }) {
       {loading ? (
         <Loader />
       ) : query.length > 0 ? (
-        <View style={styles.listContainer}>
+        <View
+          style={[
+            styles.listContainer,
+            { borderTopColor: colors[theme].border },
+          ]}
+        >
           <FlatList
             renderItem={({ item }) => (
               <ResultListItem name={item.name} username={item.username} />
@@ -49,7 +55,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    borderTopColor: colors.dark.border,
     borderTopWidth: 1,
   },
   contentContainer: {

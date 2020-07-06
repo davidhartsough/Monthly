@@ -1,12 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, useColorScheme } from "react-native";
 import { colors } from "../theme";
 
 export default function Empty({ text, children }) {
+  const theme = useColorScheme();
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{text}</Text>
-      <View>{children}</View>
+      <Text style={[styles.text, { color: colors[theme].font }]}>{text}</Text>
+      <View style={styles.center}>{children}</View>
     </View>
   );
 }
@@ -19,6 +20,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     textAlign: "center",
-    color: colors.dark.font,
+  },
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

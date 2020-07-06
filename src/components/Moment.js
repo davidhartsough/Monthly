@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, useColorScheme } from "react-native";
 import MomentLink from "./MomentLink";
 import { colors } from "../theme";
 
@@ -48,11 +48,17 @@ function formatText(str) {
   return text;
 }
 
-export default function Moment({ moment }) {
+export default function Moment({ moment, paddingRight = 16 }) {
+  const theme = useColorScheme();
   const { text } = moment;
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
+    <View
+      style={[
+        styles.container,
+        { borderColor: colors[theme].border, paddingRight },
+      ]}
+    >
+      <Text style={{ fontSize: 16, color: colors[theme].font }}>
         {hasALink(text) ? formatText(text) : text}
       </Text>
     </View>
@@ -63,14 +69,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    borderColor: colors.dark.border,
     borderRadius: 8,
     borderStyle: "solid",
     borderWidth: 1,
     marginBottom: 16,
-  },
-  text: {
-    fontSize: 16,
-    color: colors.dark.font,
   },
 });

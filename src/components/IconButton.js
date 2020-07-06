@@ -6,14 +6,17 @@ import {
   TouchableNativeFeedback,
   TouchableHighlight,
   Platform,
+  useColorScheme,
 } from "react-native";
+import { colors } from "../theme";
 
 function Touchable({ action, children }) {
+  const theme = useColorScheme();
   if (Platform.OS === "android") {
     return (
       <TouchableNativeFeedback
         onPress={action}
-        background={TouchableNativeFeedback.Ripple(rippleColor)}
+        background={TouchableNativeFeedback.Ripple(colors[theme].ripple, false)}
       >
         {children}
       </TouchableNativeFeedback>

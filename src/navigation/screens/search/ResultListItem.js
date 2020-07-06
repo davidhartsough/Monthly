@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { ActivityIndicator } from "react-native";
 import { connect } from "react-redux";
 import { acceptRequest, createRequest } from "../../../store/actions/general";
-import Loader from "../../../components/Loader";
 import LinkListItem from "../../../components/LinkListItem";
 import MyLinkListItem from "../../../components/MyLinkListItem";
 import ListItem from "../../../components/ListItem";
@@ -35,7 +35,7 @@ function ResultListItem({
   return (
     <ListItem name={name} username={username}>
       {loading ? (
-        <Loader />
+        <ActivityIndicator color="#1471eb" size="small" />
       ) : requested.includes(username) ? (
         <Button text="Request Pending" type="inline" disabled />
       ) : requests.includes(username) ? (

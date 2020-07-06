@@ -13,6 +13,7 @@ export default {
   primaryColor: "#1471eb",
   icon: "./assets/images/icon.png",
   scheme: "monthly",
+  userInterfaceStyle: "automatic",
   splash: {
     image: "./assets/images/foreground.png",
     resizeMode: "contain",

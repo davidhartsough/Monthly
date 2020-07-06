@@ -1,12 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, useColorScheme } from "react-native";
 import { colors } from "../theme";
 
 export default function Header({ title, subtitle }) {
+  const theme = useColorScheme();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subtitle}>{subtitle}</Text>
+      <Text style={[styles.title, { color: colors[theme].font }]}>{title}</Text>
+      <Text style={[styles.subtitle, { color: colors[theme].subtitle }]}>
+        {subtitle}
+      </Text>
     </View>
   );
 }
@@ -17,12 +20,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    color: colors.dark.font,
     marginVertical: 4,
   },
   subtitle: {
     fontSize: 18,
-    color: colors.dark.subtitle,
     fontWeight: "bold",
     marginVertical: 4,
   },

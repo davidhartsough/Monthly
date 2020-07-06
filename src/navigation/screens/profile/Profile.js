@@ -1,19 +1,31 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  useColorScheme,
+  Platform,
+} from "react-native";
 import Month from "../../../components/month";
 import RequestsLink from "./RequestsLink";
 import MoreMenu from "./MoreMenu";
 import { colors } from "../../../theme";
 
 export default function Profile({ profile }) {
+  const theme = useColorScheme();
   const { username, name, uid, requests, ignored } = profile;
   const count = requests.filter((i) => !ignored.includes(i)).length;
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerText}>
-          <Text style={styles.title}>{name}</Text>
-          <Text style={styles.subtitle}>{username}</Text>
+          <Text style={[styles.title, { color: colors[theme].font }]}>
+            {name}
+          </Text>
+          <Text style={[styles.subtitle, { color: colors[theme].subtitle }]}>
+            {username}
+          </Text>
         </View>
         <View style={styles.actions}>
           {count > 0 && <RequestsLink requestCount={count} />}
@@ -34,16 +46,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 16,
     paddingBottom: 8,
+    paddingTop: Platform.OS === "ios" ? 24 : 32,
   },
   headerText: {
     flex: 1,
   },
   title: {
-    color: colors.dark.font,
     fontSize: 20,
   },
   subtitle: {
-    color: colors.dark.subtitle,
     fontSize: 16,
     fontWeight: "bold",
   },

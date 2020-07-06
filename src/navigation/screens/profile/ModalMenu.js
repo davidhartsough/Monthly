@@ -6,19 +6,30 @@ import {
   StyleSheet,
   View,
   TouchableWithoutFeedback,
+  useColorScheme,
 } from "react-native";
 import Touchable from "../../../components/Touchable";
 import { colors } from "../../../theme";
 
 function MenuItem({ label, action }) {
+  const theme = useColorScheme();
   return (
-    <Touchable style={styles.item} action={action}>
-      <Text style={styles.text}>{label}</Text>
+    <Touchable action={action}>
+      <Text
+        style={{
+          fontSize: 16,
+          padding: 16,
+          color: colors[theme].font,
+        }}
+      >
+        {label}
+      </Text>
     </Touchable>
   );
 }
 
 export default function ModalMenu({ show, close, options }) {
+  const theme = useColorScheme();
   return (
     <Modal
       visible={show}
@@ -36,7 +47,13 @@ export default function ModalMenu({ show, close, options }) {
                 <MenuItem label={item.label} action={item.action} />
               )}
               keyExtractor={({ label }) => label}
-              style={styles.list}
+              style={[
+                styles.list,
+                {
+                  backgroundColor: colors[theme].background,
+                  borderColor: colors[theme].border,
+                },
+              ]}
             />
           </View>
         </View>
@@ -58,19 +75,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   list: {
-    backgroundColor: colors.dark.background,
-    borderColor: colors.dark.border,
     borderWidth: 1,
     borderStyle: "solid",
     margin: 80,
     borderRadius: 4,
     flex: 0,
-  },
-  item: {
-    padding: 16,
-  },
-  text: {
-    fontSize: 16,
-    color: colors.dark.font,
   },
 });

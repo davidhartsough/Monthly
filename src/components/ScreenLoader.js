@@ -1,12 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, useColorScheme } from "react-native";
 import Loader from "./Loader";
 import { colors } from "../theme";
 
 export default function ScreenLoader() {
+  const theme = useColorScheme();
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Monthly Moments</Text>
+    <View
+      style={[styles.container, { backgroundColor: colors[theme].background }]}
+    >
+      <Text style={[styles.title, { color: colors[theme].font }]}>
+        Monthly Moments
+      </Text>
       <Loader />
     </View>
   );
@@ -22,7 +27,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    color: colors.dark.font,
     textAlign: "center",
     marginBottom: 8,
   },

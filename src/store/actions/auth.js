@@ -3,7 +3,6 @@ import {
   setUID,
   createProfile as dbCreateProfile,
   setUsername,
-  connectWithDavid,
 } from "../db/fb";
 import { getProfile, receiveProfile } from "./profile";
 
@@ -28,7 +27,7 @@ const signIn = (uid, displayName, suggestion = "", hasProfile = false) => ({
   payload: { uid, displayName, suggestion, hasProfile },
 });
 
-function getSuggestion(name, email) {
+function getSuggestion(name = "", email) {
   return name
     ? name.toLowerCase().replace(/[^a-z]/g, "")
     : email
@@ -48,7 +47,7 @@ export const handleAuth = (user) => (dispatch, getState) => {
     }
     return dispatch(getProfile()).then((profile) => {
       const suggestion = profile ? "" : getSuggestion(displayName, email);
-      return dispatch(signIn(uid, displayName, suggestion, !!profile));
+      return dispatch(signIn(uid, displayName || "", suggestion, !!profile));
     });
   } else {
     return dispatch({ type: "sign_out" });
@@ -62,23 +61,5 @@ export const createProfile = (name, username) => (dispatch) => {
   return dbCreateProfile(name, username).then((profile) => {
     dispatch(receiveProfile(profile));
     return dispatch(finishCreatingProfile());
-  });
-};
-
-const readyToStart = () => ({ type: "ready_to_start" });
-
-export const dismissDavid = () => (dispatch) => {
-  dispatch(setLoading());
-  return dispatch(readyToStart());
-};
-
-export const addDavid = () => (dispatch) => {
-  dispatch(setLoading());
-  return connectWithDavid().then(() => {
-    dispatch({
-      type: "create_profile_connection",
-      payload: { username: "david" },
-    });
-    dispatch(readyToStart());
   });
 };

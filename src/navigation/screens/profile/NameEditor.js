@@ -8,11 +8,13 @@ import {
   View,
   TouchableWithoutFeedback,
   TextInput,
+  useColorScheme,
 } from "react-native";
 import { colors } from "../../../theme";
 import Button from "../../../components/Button";
 
 function NameEditor({ show, close, profile, save }) {
+  const theme = useColorScheme();
   const [name, setName] = useState(profile.name);
   function submit() {
     const submission = name.trim();
@@ -33,9 +35,24 @@ function NameEditor({ show, close, profile, save }) {
       <TouchableWithoutFeedback style={styles.backdrop} onPress={close}>
         <View style={styles.container}>
           <TouchableWithoutFeedback onPress={doNothing}>
-            <View style={styles.form}>
-              <Text style={styles.text}>Name</Text>
-              <View style={styles.inputContainer}>
+            <View
+              style={[
+                styles.form,
+                {
+                  backgroundColor: colors[theme].background,
+                  borderColor: colors[theme].border,
+                },
+              ]}
+            >
+              <Text style={[styles.text, { color: colors[theme].font }]}>
+                Name
+              </Text>
+              <View
+                style={[
+                  styles.inputContainer,
+                  { borderColor: colors[theme].border },
+                ]}
+              >
                 <TextInput
                   autoCompleteType="name"
                   autoFocus={true}
@@ -47,10 +64,10 @@ function NameEditor({ show, close, profile, save }) {
                   onChangeText={setName}
                   onSubmitEditing={submit}
                   placeholder={profile.name}
-                  placeholderTextColor={colors.dark.placeholderText}
+                  placeholderTextColor={colors[theme].placeholderText}
                   returnKeyType="done"
                   textContentType="name"
-                  style={styles.input}
+                  style={[styles.input, { color: colors[theme].font }]}
                   value={name}
                 />
               </View>
@@ -89,8 +106,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   form: {
-    backgroundColor: colors.dark.background,
-    borderColor: colors.dark.border,
     borderWidth: 1,
     borderStyle: "solid",
     borderRadius: 4,
@@ -100,11 +115,9 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    color: colors.dark.font,
     fontWeight: "bold",
   },
   inputContainer: {
-    borderColor: colors.dark.border,
     borderWidth: 1,
     borderStyle: "solid",
     borderRadius: 4,
@@ -113,7 +126,6 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 16,
-    color: colors.dark.font,
   },
   button: {
     alignSelf: "flex-end",

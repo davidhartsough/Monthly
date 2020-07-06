@@ -1,13 +1,13 @@
 import { colors } from "../theme";
 
-export default {
+export default (theme) => ({
   headerStyle: {
-    backgroundColor: colors.dark.nav,
-    borderColor: colors.dark.border,
+    backgroundColor: colors[theme].nav,
+    borderColor: colors[theme].border,
   },
-  headerTintColor: colors.dark.font,
+  headerTintColor: colors[theme].font,
   cardStyle: {
-    backgroundColor: colors.dark.background,
-    color: colors.dark.font,
+    backgroundColor: colors[theme].background,
+    color: colors[theme].font,
   },
-};
+});

@@ -1,9 +1,19 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { useColorScheme } from "react-native";
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native";
 import BottomTabs from "./BottomTabs";
 
-export default () => (
-  <NavigationContainer>
-    <BottomTabs />
-  </NavigationContainer>
-);
+export default () => {
+  const colorScheme = useColorScheme();
+  return (
+    <NavigationContainer
+      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+    >
+      <BottomTabs />
+    </NavigationContainer>
+  );
+};

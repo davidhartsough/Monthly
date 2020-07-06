@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, useColorScheme } from "react-native";
 import * as Linking from "expo-linking";
 import { colors } from "../theme";
 
@@ -21,15 +21,15 @@ function formatLink(url) {
 }
 
 export default function MomentLink({ url }) {
+  const theme = useColorScheme();
   const action = () => Linking.openURL(url);
   return (
-    <Text style={styles.text} onPress={action}>{` ${formatLink(url)} `}</Text>
+    <Text
+      style={{
+        fontSize: 16,
+        color: colors[theme].link,
+      }}
+      onPress={action}
+    >{` ${formatLink(url)} `}</Text>
   );
 }
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 16,
-    color: colors.dark.link,
-  },
-});

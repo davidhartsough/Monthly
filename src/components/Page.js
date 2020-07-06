@@ -1,16 +1,27 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, useColorScheme } from "react-native";
 import { colors } from "../theme";
 
 export default function Page({ children }) {
-  return <View style={styles.container}>{children}</View>;
+  const theme = useColorScheme();
+  return (
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: colors[theme].background,
+          color: colors[theme].font,
+        },
+      ]}
+    >
+      {children}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: colors.dark.background,
-    color: colors.dark.font,
   },
 });

@@ -1,11 +1,12 @@
 import React from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, useColorScheme } from "react-native";
 import LinkListItem from "./LinkListItem";
 import { colors } from "../theme";
 
 export default function LinkList({ items, Empty }) {
+  const theme = useColorScheme();
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { borderTopColor: colors[theme].border }]}>
       <FlatList
         renderItem={({ item }) => (
           <LinkListItem username={item.username} name={item.name} />
@@ -24,7 +25,6 @@ export default function LinkList({ items, Empty }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderTopColor: colors.dark.border,
     borderTopWidth: 1,
   },
   contentContainer: {

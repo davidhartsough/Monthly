@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useColorScheme } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { connect } from "react-redux";
@@ -8,11 +9,13 @@ import ScreenLoader from "../../components/ScreenLoader";
 import Auth from "./Auth";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import Intro from "./Intro";
 import options from "../options";
 
 const Stack = createStackNavigator();
 
 function Authenticator({ auth, handleUser, keepLoading, children }) {
+  const theme = useColorScheme();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     keepLoading();
@@ -23,10 +26,16 @@ function Authenticator({ auth, handleUser, keepLoading, children }) {
     });
   }, [keepLoading, handleUser]);
   if (auth.loading || loading) return <ScreenLoader />;
-  if (auth.isSignedIn) return children;
+  if (auth.isSignedIn) {
+    if (!auth.hasProfile) return <Intro />;
+    return children;
+  }
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome" screenOptions={options}>
+      <Stack.Navigator
+        initialRouteName="Welcome"
+        screenOptions={options(theme)}
+      >
         <Stack.Screen name="Welcome" component={Auth} />
         <Stack.Screen name="Sign In" component={SignIn} />
         <Stack.Screen name="Sign Up" component={SignUp} />

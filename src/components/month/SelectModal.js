@@ -6,20 +6,23 @@ import {
   StyleSheet,
   View,
   TouchableWithoutFeedback,
+  useColorScheme,
 } from "react-native";
 import Touchable from "../Touchable";
 import { colors } from "../../theme";
 
-function MenuItem({ item, index, onSelect }) {
+function MenuItem({ item, index, onSelect, color }) {
   const action = () => onSelect(item.value, index);
   return (
-    <Touchable style={styles.item} action={action}>
-      <Text style={styles.text}>{item.label}</Text>
+    <Touchable action={action}>
+      <Text style={{ fontSize: 16, padding: 8, color }}>{item.label}</Text>
     </Touchable>
   );
 }
 
 export default function SelectModal({ show, close, options, onSelect }) {
+  const theme = useColorScheme();
+  const color = colors[theme].font;
   return (
     <Modal
       visible={show}
@@ -34,10 +37,21 @@ export default function SelectModal({ show, close, options, onSelect }) {
             <FlatList
               data={options}
               renderItem={({ item, index }) => (
-                <MenuItem item={item} index={index} onSelect={onSelect} />
+                <MenuItem
+                  item={item}
+                  index={index}
+                  onSelect={onSelect}
+                  color={color}
+                />
               )}
               keyExtractor={({ value }) => value}
-              style={styles.list}
+              style={[
+                styles.list,
+                {
+                  backgroundColor: colors[theme].background,
+                  borderColor: colors[theme].border,
+                },
+              ]}
             />
           </View>
         </View>
@@ -58,19 +72,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   list: {
-    backgroundColor: colors.dark.background,
-    borderColor: colors.dark.border,
     borderWidth: 1,
     borderStyle: "solid",
     margin: 80,
     borderRadius: 4,
     flex: 0,
-  },
-  item: {
-    padding: 16,
-  },
-  text: {
-    fontSize: 16,
-    color: colors.dark.font,
   },
 });

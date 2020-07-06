@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { useColorScheme } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import { Home, Search, Add, Profile } from "./stacks";
@@ -10,23 +10,23 @@ const TabBarIcon = ({ name, focused }) => (
 );
 
 const BottomTab = createBottomTabNavigator();
-const tabBarOptions = {
-  activeTintColor: colors.dark.navLinkActive,
-  // activeBackgroundColor,
-  inactiveTintColor: colors.dark.navLink,
-  // inactiveBackgroundColor,
+const tabBarOptions = (theme) => ({
+  activeTintColor: colors[theme].navLinkActive,
+  inactiveTintColor: colors[theme].navLink,
   showLabel: false,
   style: {
-    backgroundColor: colors.dark.nav,
-    borderColor: colors.dark.border,
+    backgroundColor: colors[theme].nav,
+    borderColor: colors[theme].border,
   },
-};
+  keyboardHidesTabBar: true,
+});
 
 export default function BottomTabNavigator() {
+  const colorScheme = useColorScheme();
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
-      tabBarOptions={tabBarOptions}
+      tabBarOptions={tabBarOptions(colorScheme)}
       resetOnBlur={true}
     >
       <BottomTab.Screen

@@ -1,11 +1,14 @@
 import React from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet, useColorScheme } from "react-native";
 import Moment from "../Moment";
 import { colors } from "../../theme";
 
 export default function MomentList({ moments, Empty }) {
+  const theme = useColorScheme();
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, { borderTopColor: colors[theme].fadedBorder }]}
+    >
       <FlatList
         renderItem={({ item }) => <Moment moment={item} />}
         data={moments}
@@ -21,7 +24,6 @@ export default function MomentList({ moments, Empty }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderTopColor: colors.dark.fadedBorder,
     borderTopWidth: 1,
   },
   contentContainer: {
