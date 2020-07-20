@@ -76,10 +76,6 @@ function Intro({ auth }) {
             Generally, Moments capture the the parts of your life that you want
             to share with your friends, including:
           </ThemedText>
-          <ThemedText style={styles.text}>
-            Generally, Moments capture the the parts of your life that you want
-            to share with your friends, including:
-          </ThemedText>
         </View>
         <View style={styles.list}>
           <ThemedText style={styles.listItem}>

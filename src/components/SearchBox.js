@@ -12,7 +12,6 @@ export default function SearchBox({ setValue, onSubmit, value }) {
         autoCapitalize="none"
         autoCompleteType="off"
         autoCorrect={false}
-        autoFocus={true}
         blurOnSubmit={true}
         caretHidden={false}
         clearButtonMode="while-editing"

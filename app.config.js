@@ -42,6 +42,7 @@ export default {
       backgroundColor: "#1471eb",
       foregroundImage: "./assets/images/foreground.png",
     },
+    permissions: [],
     config: {
       googleSignIn: {
         apiKey: config.apiKey,
