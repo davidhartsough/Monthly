@@ -8,7 +8,7 @@ export default {
   platforms: ["ios", "android"],
   privacy: "public",
   githubUrl: "https://github.com/davidhartsough/Monthly",
-  version: "0.1.0",
+  version: "0.1.2",
   orientation: "portrait",
   primaryColor: "#1471eb",
   icon: "./assets/images/icon.png",
@@ -36,13 +36,15 @@ export default {
   },
   android: {
     package: "com.davidhartsough.monthly",
-    versionCode: 1,
+    versionCode: 3,
     icon: "./assets/images/android-icon.png",
     adaptiveIcon: {
-      backgroundColor: "#1471eb",
+      backgroundColor: "#f4f5f6",
       foregroundImage: "./assets/images/foreground.png",
     },
     permissions: [],
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.davidhartsough.monthly",
     config: {
       googleSignIn: {
         apiKey: config.apiKey,
