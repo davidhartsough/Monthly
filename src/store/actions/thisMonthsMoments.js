@@ -1,3 +1,4 @@
+import { getThisCurrentMonth } from "../../date-utils";
 import {
   getThisMonthsMoments,
   updateMoment as dbUpdate,
@@ -33,7 +34,7 @@ const _deleteMoment = (id) => ({
 
 export const fetchThisMonthsMoments = () => (dispatch, getState) => {
   const { hasFetched } = getState().thisMonthsMoments;
-  if (hasFetched) return dispatch(stopLoading());
+  if (hasFetched === getThisCurrentMonth()) return dispatch(stopLoading());
   dispatch(requestThisMonthsMoments());
   return getThisMonthsMoments().then((data) => {
     return dispatch(receiveThisMonthsMoments(data));

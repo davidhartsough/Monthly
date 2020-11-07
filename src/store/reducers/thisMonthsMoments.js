@@ -1,3 +1,5 @@
+import { getThisCurrentMonth } from "../../date-utils";
+
 const initialState = {
   loading: true,
   hasFetched: false,
@@ -29,7 +31,7 @@ export default function thisMonthsMoments(state = initialState, action) {
       const { data } = action.payload;
       return {
         loading: false,
-        hasFetched: true,
+        hasFetched: getThisCurrentMonth(),
         data,
       };
     }

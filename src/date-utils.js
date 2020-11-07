@@ -70,3 +70,6 @@ export function isValidMonth(yearAndMonth) {
   }
   return false;
 }
+export function getThisCurrentMonth() {
+  return `${date.getFullYear()}-${date.getMonth() + 1}`;
+}

@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import config from "./config";
-import { currentMonth } from "../../date-utils";
+import { getThisCurrentMonth } from "../../date-utils";
 
 let _db = null;
 let _auth = null;
@@ -138,7 +138,7 @@ export function getThisMonthsMoments() {
   return _db
     .collection("moments")
     .where("uid", "==", _uid)
-    .where("month", "==", currentMonth)
+    .where("month", "==", getThisCurrentMonth())
     .orderBy("timestamp")
     .get()
     .then(({ docs }) => docs.map(mapDocs))
@@ -165,7 +165,7 @@ export function getRecap(month, uid) {
 export function createMoment(text) {
   const newMoment = {
     uid: _uid,
-    month: currentMonth,
+    month: getThisCurrentMonth(),
     username: _username,
     text,
     timestamp: firebase.firestore.Timestamp.now().seconds,
