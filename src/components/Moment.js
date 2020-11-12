@@ -6,45 +6,42 @@ import { colors } from "../theme";
 const urlPattern = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/;
 const hasALink = (str) => str.includes("https://") || str.includes("http://");
 const whitespacePattern = /\s/;
+
 function formatText(str) {
   let text = [];
   let remaining = str;
   while (hasALink(remaining)) {
-    let urlIndex = remaining.indexOf("https://");
-    let altUrlIndex = remaining.indexOf("http://");
-    if (altUrlIndex !== -1 && (urlIndex > altUrlIndex || urlIndex === -1)) {
-      urlIndex = altUrlIndex;
+    let nextIndex = remaining.indexOf("https://");
+    const altUrlIndex = remaining.indexOf("http://");
+    if (altUrlIndex !== -1 && (nextIndex > altUrlIndex || nextIndex === -1)) {
+      nextIndex = altUrlIndex;
     }
-    let url = remaining.slice(urlIndex);
-    let nextSpaceIndex = url.search(whitespacePattern);
+    text.push(remaining.slice(0, nextIndex));
+    remaining = remaining.slice(nextIndex);
+    const nextSpaceIndex = remaining.search(whitespacePattern);
     if (nextSpaceIndex === -1) {
-      nextSpaceIndex = remaining.length - 1;
-      if (!urlPattern.test(url)) {
+      if (!urlPattern.test(remaining)) {
         text.push(remaining);
-        remaining = "";
-        break;
+      } else {
+        text.push(
+          <MomentLink key={`${remaining}-${nextSpaceIndex}`} url={remaining} />
+        );
       }
-      text.push(remaining.slice(0, urlIndex));
-      text.push(
-        <MomentLink key={`${url}-${urlIndex}-${nextSpaceIndex}`} url={url} />
-      );
       remaining = "";
       break;
     } else {
-      url = url.slice(0, nextSpaceIndex);
-      nextSpaceIndex += urlIndex;
-    }
-    if (!urlPattern.test(url)) {
-      text.push(remaining.slice(0, nextSpaceIndex));
+      const newUrl = remaining.slice(0, nextSpaceIndex);
+      if (!urlPattern.test(newUrl)) {
+        text.push(newUrl);
+      } else {
+        text.push(
+          <MomentLink key={`${newUrl}-${nextSpaceIndex}`} url={newUrl} />
+        );
+      }
       remaining = remaining.slice(nextSpaceIndex);
-      continue;
     }
-    text.push(remaining.slice(0, urlIndex));
-    text.push(
-      <MomentLink key={`${url}-${urlIndex}-${nextSpaceIndex}`} url={url} />
-    );
-    remaining = remaining.slice(nextSpaceIndex);
   }
+  if (remaining.length > 0) text.push(remaining);
   return text;
 }
 

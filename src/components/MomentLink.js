@@ -30,6 +30,8 @@ export default function MomentLink({ url }) {
         color: colors[theme].link,
       }}
       onPress={action}
-    >{` ${formatLink(url)} `}</Text>
+    >
+      {formatLink(url)}
+    </Text>
   );
 }
